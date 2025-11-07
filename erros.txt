@@ -1,0 +1,4 @@
+A arrumar:
+Tratamentos de Excecoes:
+-Mostrar dados -> Digitar letras / Mostrar trechos tambem
+-Digitar letras na opcao inicial
