@@ -1,4 +1,4 @@
 A arrumar:
 Tratamentos de Excecoes:
--Mostrar dados -> Digitar letras / Mostrar trechos tambem
+-Mostrar dados -> Digitar letras / Mostrar trechos tambem, digitar ID < 0
 -Digitar letras na opcao inicial
