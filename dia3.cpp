@@ -31,10 +31,17 @@ void exibirMenu();
 void inserirElemento(Frutas*& vetor, int& n_elementos, int& capacidade, string& ordenadoPor);
 void removerElemento(Frutas* vetor, int& n_elementos);
 void mostrarDados(Frutas* vetor, int n_elementos);
+void ordenarDados(Frutas* vetor, int n_elementos, string& ordenadoPor);
 // Funções Auxiliares (Impressão e Busca Linear)
 void imprimirFruta(Frutas& fruta);
 int buscarPorId_Linear(Frutas* vetor, int n_elementos, int id);
 void imprimirVetor(Frutas* vetor, int inicio, int fim);
+// Funções de Ordenação (QuickSort)
+void swap(Frutas& a, Frutas& b);
+int particionarPorId(Frutas* vetor, int inicio, int fim);
+void quickSortPorId(Frutas* vetor, int inicio, int fim);
+int particionarPorNome(Frutas* vetor, int inicio, int fim);
+void quickSortPorNome(Frutas* vetor, int inicio, int fim);
 // FUNÇÃO PRINCIPAL 
 int main(){
     int capacidade_total = 40; // Tamanho inicial
@@ -66,7 +73,7 @@ int main(){
                 mostrarDados(vetor, n_elementos_vetor);
                 break;
             case 5:
-                cout << "Opcao 5 (Ordenar) ainda nao implementada." << endl;
+                ordenarDados(vetor, n_elementos_vetor, ordenadoPor);
                 break;
             case 6:
                 gravarArquivo(vetor, n_elementos_vetor);
@@ -268,6 +275,28 @@ void mostrarDados(Frutas* vetor, int n_elementos){
     }
 }
 
+// Menu de ordenação
+void ordenarDados(Frutas* vetor, int n_elementos, string& ordenadoPor){
+    int opcao;
+    cout << "Ordenar por:" << endl;
+    cout << "1. ID" << endl;
+    cout << "2. Nome" << endl;
+    cout << "Opcao: ";
+    cin >> opcao;
+
+    if (opcao == 1){
+        quickSortPorId(vetor, 0, n_elementos - 1);
+        ordenadoPor = "id";
+        cout << "Vetor ordenado por ID." << endl;
+    } else if (opcao == 2){
+        quickSortPorNome(vetor, 0, n_elementos - 1);
+        ordenadoPor = "nome";
+        cout << "Vetor ordenado por Nome." << endl;
+    } else {
+        cout << "Opcao invalida." << endl;
+    }
+}
+
 // FUNÇÕES AUXILIARES 
 void imprimirFruta(Frutas& fruta){
     cout << "--------------------" << endl;
@@ -292,4 +321,52 @@ int buscarPorId_Linear(Frutas* vetor, int n_elementos, int id){
         }
     }
     return -1;
+}
+
+// FUNÇÕES DE ORDENAÇÃO (QUICKSORT)
+void swap(Frutas& a, Frutas& b){
+    Frutas temp = a;
+    a = b;
+    b = temp;
+}
+// QuickSort por ID
+int particionarPorId(Frutas* vetor, int inicio, int fim){
+    int pivo = vetor[fim].id;
+    int i = (inicio - 1);
+    for (int j = inicio; j <= fim - 1; j++){
+        if (vetor[j].id <= pivo){
+            i++;
+            swap(vetor[i], vetor[j]);
+        }
+    }
+    swap(vetor[i + 1], vetor[fim]);
+    return (i + 1);
+}
+void quickSortPorId(Frutas* vetor, int inicio, int fim){
+    if (inicio < fim){
+        int pi = particionarPorId(vetor, inicio, fim);
+        quickSortPorId(vetor, inicio, pi - 1);
+        quickSortPorId(vetor, pi + 1, fim);
+    }
+}
+
+// QuickSort por Nome
+int particionarPorNome(Frutas* vetor, int inicio, int fim){
+    string pivo = vetor[fim].nome;
+    int i = (inicio - 1);
+    for (int j = inicio; j <= fim - 1; j++){
+        if (vetor[j].nome <= pivo){
+            i++;
+            swap(vetor[i], vetor[j]);
+        }
+    }
+    swap(vetor[i + 1], vetor[fim]);
+    return (i + 1);
+}
+void quickSortPorNome(Frutas* vetor, int inicio, int fim){
+    if (inicio < fim){
+        int pi = particionarPorNome(vetor, inicio, fim);
+        quickSortPorNome(vetor, inicio, pi - 1);
+        quickSortPorNome(vetor, pi + 1, fim);
+    }
 }
