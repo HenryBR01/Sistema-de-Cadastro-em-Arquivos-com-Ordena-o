@@ -1,4 +1,9 @@
 A arrumar:
+Defesa Contra Entradas Inválidas do Usuário
+Defesa Contra Dados Duplicados (mesmo id) (Integridade)
+Defesa Contra Vetor Vazio (ja faz, so tem como deixar mais claro pro usuario)
+Defesa Contra Valores Inválidos (id-10 calorias -10 nome ---)
+Defesa Contra Perda de Dados
 Tratamentos de Excecoes:
 -Mostrar dados -> Digitar letras / Mostrar trechos tambem, digitar ID < 0
 -Digitar letras na opcao inicial
